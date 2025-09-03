@@ -5,10 +5,10 @@ NAMA: Sesy Tana Lina Rahmatin
 
 **Soal 1**
 Modifikasi:
-<img src="Gambar/No1.png" alt="No1"/>
+<img src="img/No1.png" alt="No1"/>
 
 Output:
-<img src="Gambar/Modifikasi.png" alt="Modifikasi"/>
+<img src="img/Modifikasi.png" alt="Modifikasi"/>
 
 **Soal 2**
 Penting untuk memahami bahasa pemrograman Dart sebelum menggunakan framework Flutter karena:
