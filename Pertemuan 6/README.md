@@ -21,7 +21,22 @@ Hasil akhir:
 Hasil akhir:
 <img src="img/img5.png" alt="No2"/>
 
+# Tugas Praktikum 1
+implementasikan di project baru "basic_layout_flutter" dengan mengakses sumber ini: https://docs.flutter.dev/codelabs/layout-basics
+
+Hasil akhir:
+<img src="img/img5.png" alt="No2"/>
+
 # Praktikum 5: Membangun Navigasi di Flutter
 Hasil akhir:
 <img src="img/img6.png" alt="No2"/>
 <img src="img/img7.png" alt="No2"/>
+
+# Tugas Praktikum 2
+Hasil akhir:
+<img src="img/img9.png" alt="No2"/>
+<img src="img/img10.png" alt="No2"/>
+
+
+<img src="img/img11.png" alt="No2"/>
+<img src="img/img12.png" alt="No2"/>
