@@ -12,6 +12,9 @@ output:
 output:
 <img src="img/p2.jpg" alt="No2"/>
 
+# tugas
+<img src="img/p3.jpg" alt="No2"/>
+
 
 3.Jelaskan maksud void async pada praktikum 1?
 Kata kunci async menandakan bahwa fungsi tersebut bersifat asynchronous, dapat “menunggu” hasil operasi yang lama tanpa membekukan UI. Tipe kembalian void berarti fungsi ini tidak mengembalikan nilai apa-apa.
