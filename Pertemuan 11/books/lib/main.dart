@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:async/async.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +34,19 @@ class FuturePage extends StatefulWidget {
 class _FuturePageState extends State<FuturePage> {
   String result = '';
 
+  late Completer<int> completer;
+
+  Future getNumber() {
+    completer = Completer<int>();
+    calculate();
+    return completer.future;
+  }
+
+  Future calculate() async {
+    await Future.delayed(const Duration(seconds: 5));
+    completer.complete(42);
+  }
+
   Future<Response> getData() async {
     const authority = 'www.googleapis.com';
     const path = '/books/v1/volumes/_GF6EAAAQBAJ';
@@ -40,7 +54,6 @@ class _FuturePageState extends State<FuturePage> {
     return http.get(url);
   }
 
-// ====== Tambahkan tiga method Future ======
   Future<int> returnOneAsync() async {
     await Future.delayed(const Duration(seconds: 3));
     return 1;
@@ -56,7 +69,6 @@ class _FuturePageState extends State<FuturePage> {
     return 3;
   }
 
-  // ====== Langkah 2: Tambahkan method count() ======
   Future<void> count() async {
     int total = 0;
     total = await returnOneAsync();
@@ -80,19 +92,29 @@ class _FuturePageState extends State<FuturePage> {
             ElevatedButton(
               child: const Text('GO!'),
               onPressed: () {
+                /*
                 setState(() {}); 
-                count(); // panggil fungsi count()
+                count(); 
                 getData()
                     .then((value) {
-                     
                       result = value.body.toString().substring(0, 450);
                       setState(() {});
                     })
                     .catchError((_) {
-                     
                       result = 'An error occurred';
                       setState(() {});
                     });
+                */
+
+                getNumber().then((value) {
+                  setState(() {
+                    result = value.toString();
+                  });
+                }).catchError((e) {
+                  setState(() {
+                    result = 'An error occurred';
+                  });
+                });
               },
             ),
             const Spacer(),
