@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
-import 'package:async/async.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Future Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const FuturePage(),
     );
   }
@@ -34,112 +29,48 @@ class FuturePage extends StatefulWidget {
 class _FuturePageState extends State<FuturePage> {
   String result = '';
 
-  late Completer<int> completer;
-
-  Future getNumber() {
-    completer = Completer<int>();
-    calculate();
-    return completer.future;
+  // Fungsi Future sederhana yang akan menghasilkan error setelah 2 detik
+  Future<String> returnError() async {
+    await Future.delayed(const Duration(seconds: 2));
+    throw Exception('Something terrible happened!');
   }
 
-  Future calculate() async {
-    await Future.delayed(const Duration(seconds: 5));
-    completer.complete(42);
-  }
-
-  Future<Response> getData() async {
-    const authority = 'www.googleapis.com';
-    const path = '/books/v1/volumes/_GF6EAAAQBAJ';
-    Uri url = Uri.https(authority, path);
-    return http.get(url);
-  }
-
-  Future<int> returnOneAsync() async {
-    await Future.delayed(const Duration(seconds: 3));
-    return 1;
-  }
-
-  Future<int> returnTwoAsync() async {
-    await Future.delayed(const Duration(seconds: 3));
-    return 2;
-  }
-
-  Future<int> returnThreeAsync() async {
-    await Future.delayed(const Duration(seconds: 3));
-    return 3;
-  }
-
-  void returnFG() async {
-    final futures = Future.wait<int>([
-      returnOneAsync(),
-      returnTwoAsync(),
-      returnThreeAsync(),
-    ]);
-
-    futures.then((List<int> value) {
-      int total = 0;
-      for (var element in value) {
-        total += element;
-      }
-
+  // Method untuk menangani error
+  Future handleError() async {
+    try {
+      await returnError();
+    } catch (error) {
       setState(() {
-        result = total.toString();
+        result = error.toString();
       });
-    }).catchError((error) {
-      setState(() {
-        result = 'An error occurred';
-      });
-    });
+    } finally {
+      print('Complete');
+    }
   }
-
-  /*
-  Future<void> count() async {
-    int total = 0;
-    total = await returnOneAsync();
-    total += await returnTwoAsync();
-    total += await returnThreeAsync();
-    setState(() {
-      result = total.toString();
-    });
-  }
-  */
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Back from the Future'),
+        title: const Text('Future Error Handling'),
+        backgroundColor: Colors.blueAccent,
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Spacer(),
             ElevatedButton(
-              child: const Text('GO!'),
               onPressed: () {
-                /*
-                getNumber().then((value) {
-                  setState(() {
-                    result = value.toString();
-                  });
-                }).catchError((e) {
-                  setState(() {
-                    result = 'An error occurred';
-                  });
-                });
-                */
-
-                returnFG();
+                handleError();
               },
+              child: const Text('GO!'),
             ),
-            const Spacer(),
+            const SizedBox(height: 20),
             Text(
-              result.isEmpty ? 'Tekan tombol untuk memuat data' : result,
+              result,
+              style: const TextStyle(fontSize: 16, color: Colors.red),
               textAlign: TextAlign.center,
             ),
-            const Spacer(),
-            const CircularProgressIndicator(),
-            const Spacer(),
           ],
         ),
       ),
