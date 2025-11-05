@@ -9,43 +9,16 @@ class LocationScreen extends StatefulWidget {
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-  String myPosition = '';
+  Future<Position?>? position;
 
   @override
   void initState() {
     super.initState();
-    getPosition().then((Position myPos) {
-      String positionText =
-          'Latitude: ${myPos.latitude.toString()} - Longitude: ${myPos.longitude.toString()}';
-      setState(() {
-        myPosition = positionText;
-      });
-    }).catchError((error) {
-      setState(() {
-        myPosition = 'Error: $error';
-      });
-    });
+    position = getPosition();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Current Location - by Sesy'),
-      ),
-      body: Center(
-        child: Text(
-          myPosition.isEmpty ? 'Getting location...' : myPosition,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 18),
-        ),
-      ),
-    );
-  }
-
-
-  Future<Position> getPosition() async {
-
+  Future<Position?> getPosition() async {
+    // Cek permission
     LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
@@ -63,8 +36,52 @@ class _LocationScreenState extends State<LocationScreen> {
       throw Exception('Location services are disabled - by Salsabila');
     }
 
-    return await Geolocator.getCurrentPosition(
+    await Future.delayed(const Duration(seconds: 3));
+
+    Position pos = await Geolocator.getCurrentPosition(
       desiredAccuracy: LocationAccuracy.high,
+    );
+
+    return pos;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Current Location - by Sesy'),
+      ),
+      body: Center(
+        child: FutureBuilder<Position?>(
+          future: position,
+          builder: (context, snapshot) {
+  
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            }
+
+            else if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasError) {
+                return const Text(
+                  'Something terrible happened!',
+                  style: TextStyle(fontSize: 18, color: Colors.red),
+                  textAlign: TextAlign.center,
+                );
+              }
+
+              if (snapshot.hasData) {
+                return Text(
+                  'Latitude: ${snapshot.data!.latitude}\nLongitude: ${snapshot.data!.longitude}',
+                  style: const TextStyle(fontSize: 18),
+                  textAlign: TextAlign.center,
+                );
+              }
+            }
+
+            return const Text('');
+          },
+        ),
+      ),
     );
   }
 }
