@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'navigation_first.dart';
-
+import 'navigation_dialog.dart'; 
 void main() {
   runApp(const MyApp());
 }
@@ -13,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Navigation Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const NavigationFirst(),
+      home: const NavigationDialogScreen(), 
     );
   }
 }
