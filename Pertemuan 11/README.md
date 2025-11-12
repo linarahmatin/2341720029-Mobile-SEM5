@@ -84,7 +84,7 @@ Tambahkan nama panggilan Anda pada tiap properti title sebagai identitas pekerja
     Tidak, saat dijalankan di browser, aplikasi umumnya tidak bisa memperoleh koordinat GPS yang benar-benar akurat. Ini disebabkan karena Flutter Web tidak memiliki akses langsung ke sensor GPS perangkat. Sebagai gantinya, aplikasi hanya memanfaatkan API geolokasi milik browser, yang menentukan lokasi berdasarkan Wi-Fi, alamat IP, atau lokasi umum perangkat desktop. Selain itu, browser dapat membatasi akses lokasi jika aplikasi tidak dijalankan melalui HTTPS atau jika pengguna menolak memberikan izin lokasi. Akibatnya, aplikasi mungkin menampilkan error atau hanya menunjukkan perkiraan posisi, bukan data GPS yang sebenarnya.
 
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 12".
-  https://github.com/user-attachments/assets/91bd4f42-c08d-40c2-87f4-07c213a75d5d
+<img src="img/Prak7.jpg" />
 
 # Soal 13
 - Apakah ada perbedaan UI dengan praktikum sebelumnya? Mengapa demikian?
@@ -93,6 +93,7 @@ Tambahkan nama panggilan Anda pada tiap properti title sebagai identitas pekerja
 Benar, ada perbedaan tampilan antarmuka antara praktikum sebelumnya dan praktikum kali ini. Pada praktikum sebelumnya, pengambilan data lokasi dilakukan menggunakan then() dan pembaruan tampilannya dilakukan secara manual lewat setState(). Sementara itu, pada praktikum kali ini digunakan FutureBuilder, yang membuat tampilan lebih dinamis, rapi, dan responsif terhadap perubahan data. Dengan FutureBuilder, proses pemanggilan data dikelola otomatis melalui status Future, sehingga UI dapat menampilkan indikator loading saat data masih diproses dan menampilkan hasil lokasi setelah selesai. Pendekatan ini membuat kode lebih sederhana serta membantu memisahkan logika asynchronous dari tampilan UI dengan cara yang lebih terstruktur.
 
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 13".
+
  https://github.com/user-attachments/assets/91bd4f42-c08d-40c2-87f4-07c213a75d5d
 
 - Seperti yang terlihat, penggunaan FutureBuilder membuat tampilan menjadi lebih efisien, rapi, dan responsif karena mampu mengintegrasikan Future dengan UI secara otomatis.
@@ -104,6 +105,7 @@ Benar, ada perbedaan tampilan antarmuka antara praktikum sebelumnya dan praktiku
 Secara tampilan, tidak ada perubahan yang terlihat dibandingkan langkah sebelumnya selama proses mendapatkan lokasi berjalan lancar. Penambahan pengecekan snapshot.hasError hanya berfungsi sebagai mekanisme penanganan saat terjadi error. Jadi, jika lokasi berhasil diambil tanpa kendala, UI tetap menampilkan koordinat seperti biasa. Namun ketika terjadi masalah — misalnya pengguna menolak izin lokasi atau GPS dimatikan — maka aplikasi akan menampilkan pesan "Something terrible happened!". Dengan begitu, kini aplikasi memiliki respons yang jelas ketika terjadi kegagalan dalam proses pengambilan lokasi.
 
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 14".
+  
  https://github.com/user-attachments/assets/91bd4f42-c08d-40c2-87f4-07c213a75d5d
 
  # Soal 15
@@ -135,6 +137,7 @@ https://github.com/user-attachments/assets/913f031f-1522-4e06-b154-359f6b2a31fb
   <img src="img/soal17.png" />
 
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 17".
+
 https://github.com/user-attachments/assets/3ff92fb7-4c70-4967-8ee8-651af0861248
   
 
