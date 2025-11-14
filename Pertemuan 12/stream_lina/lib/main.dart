@@ -39,7 +39,10 @@ class _StreamHomePageState extends State<StreamHomePage> {
   late StreamController numberStreamController;
   late NumberStream numberStream;
 
-  // Method untuk warna
+  // === Variabel baru untuk transformer ===
+  late StreamTransformer<int, int> transformer;
+
+  // Method warna
   void changeColor() {
     colorStream.getColors().listen((eventColor) {
       setState(() {
@@ -50,8 +53,6 @@ class _StreamHomePageState extends State<StreamHomePage> {
 
   @override
   void initState() {
-    super.initState();
-
     // Warna berjalan otomatis
     colorStream = ColorStream();
     changeColor();
@@ -62,19 +63,31 @@ class _StreamHomePageState extends State<StreamHomePage> {
 
     Stream stream = numberStreamController.stream;
 
-    // Listener angka
-    stream.listen(
+    // === Tambahkan StreamTransformer ===
+    transformer = StreamTransformer<int, int>.fromHandlers(
+      handleData: (value, sink) {
+        sink.add(value * 10); // semua angka dikali 10
+      },
+      handleError: (error, trace, sink) {
+        sink.add(-1); // jika error → kirim -1
+      },
+      handleDone: (sink) => sink.close(),
+    );
+
+    // === Listener memakai transformer ===
+    stream.transform(transformer).listen(
       (event) {
         setState(() {
           lastNumber = event;
         });
       },
-    );
-    // .onError((error) {
-    //   setState(() {
-    //     lastNumber = -1;
-    //   });
-    // });
+    ).onError((error) {
+      setState(() {
+        lastNumber = -1;
+      });
+    });
+
+    super.initState();
   }
 
   @override
@@ -83,14 +96,14 @@ class _StreamHomePageState extends State<StreamHomePage> {
     super.dispose();
   }
 
-  // Mengembalikan addRandomNumber ke kondisi normal
+  // Kembali ke angka random normal
   void addRandomNumber() {
     Random random = Random();
     int myNum = random.nextInt(10);
 
     numberStream.addNumberToSink(myNum);
 
-    // numberStream.addError(); // dikomentari
+    // numberStream.addError(); // tetap dikomentari
   }
 
   @override
