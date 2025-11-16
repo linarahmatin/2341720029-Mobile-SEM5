@@ -29,30 +29,32 @@ class StreamHomePage extends StatefulWidget {
 
 class _StreamHomePageState extends State<StreamHomePage> {
   int lastNumber = 0;
+
   late StreamController numberStreamController;
   late NumberStream numberStream;
+
   late StreamSubscription subscription;
+  late StreamSubscription subscription2;
+
+  String values = '';
 
   @override
   void initState() {
     numberStream = NumberStream();
     numberStreamController = numberStream.controller;
-    Stream stream = numberStreamController.stream;
+
+    Stream stream = numberStreamController.stream.asBroadcastStream();
 
     subscription = stream.listen((event) {
       setState(() {
-        lastNumber = event;
+        values += '$event -';
       });
     });
 
-    subscription.onError((error) {
+    subscription2 = stream.listen((event) {
       setState(() {
-        lastNumber = -1;
+        values += '$event -';
       });
-    });
-
-    subscription.onDone(() {
-      print('OnDone was called');
     });
 
     super.initState();
@@ -78,6 +80,7 @@ class _StreamHomePageState extends State<StreamHomePage> {
   @override
   void dispose() {
     subscription.cancel();
+    subscription2.cancel();
     super.dispose();
   }
 
@@ -86,8 +89,7 @@ class _StreamHomePageState extends State<StreamHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Stream Lina'),
-        titleTextStyle:
-            const TextStyle(fontSize: 20, color: Colors.white),
+        titleTextStyle: const TextStyle(fontSize: 20, color: Colors.white),
         backgroundColor: Colors.blue,
       ),
       body: SizedBox(
@@ -96,10 +98,12 @@ class _StreamHomePageState extends State<StreamHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            /// ✔️ Menampilkan values
             Text(
-              lastNumber.toString(),
-              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              values,
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
+
             ElevatedButton(
               onPressed: () => addRandomNumber(),
               child: const Text('New Random Number'),
