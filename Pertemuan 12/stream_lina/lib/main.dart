@@ -13,10 +13,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Stream - Lina',
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
-      ),
+      title: 'Stream Subscription Lina',
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const StreamHomePage(),
     );
   }
@@ -30,87 +28,67 @@ class StreamHomePage extends StatefulWidget {
 }
 
 class _StreamHomePageState extends State<StreamHomePage> {
-  // Untuk ColorStream
-  Color bgColor = Colors.blueGrey;
-  late ColorStream colorStream;
-
-  // Untuk NumberStream
   int lastNumber = 0;
   late StreamController numberStreamController;
   late NumberStream numberStream;
-
-  // === Variabel baru untuk transformer ===
-  late StreamTransformer<int, int> transformer;
-
-  // Method warna
-  void changeColor() {
-    colorStream.getColors().listen((eventColor) {
-      setState(() {
-        bgColor = eventColor;
-      });
-    });
-  }
+  late StreamSubscription subscription;
 
   @override
   void initState() {
-    // Warna berjalan otomatis
-    colorStream = ColorStream();
-    changeColor();
-
-    // Stream angka
     numberStream = NumberStream();
     numberStreamController = numberStream.controller;
-
     Stream stream = numberStreamController.stream;
 
-    // === Tambahkan StreamTransformer ===
-    transformer = StreamTransformer<int, int>.fromHandlers(
-      handleData: (value, sink) {
-        sink.add(value * 10); // semua angka dikali 10
-      },
-      handleError: (error, trace, sink) {
-        sink.add(-1); // jika error → kirim -1
-      },
-      handleDone: (sink) => sink.close(),
-    );
+    subscription = stream.listen((event) {
+      setState(() {
+        lastNumber = event;
+      });
+    });
 
-    // === Listener memakai transformer ===
-    stream.transform(transformer).listen(
-      (event) {
-        setState(() {
-          lastNumber = event;
-        });
-      },
-    ).onError((error) {
+    subscription.onError((error) {
       setState(() {
         lastNumber = -1;
       });
     });
 
+    subscription.onDone(() {
+      print('OnDone was called');
+    });
+
     super.initState();
   }
 
-  @override
-  void dispose() {
-    numberStreamController.close();
-    super.dispose();
-  }
-
-  // Kembali ke angka random normal
   void addRandomNumber() {
     Random random = Random();
     int myNum = random.nextInt(10);
 
-    numberStream.addNumberToSink(myNum);
+    if (!numberStreamController.isClosed) {
+      numberStream.addNumberToSink(myNum);
+    } else {
+      setState(() {
+        lastNumber = -1;
+      });
+    }
+  }
 
-    // numberStream.addError(); // tetap dikomentari
+  void stopStream() {
+    numberStreamController.close();
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Stream - Lina'),
+        title: const Text('Stream Lina'),
+        titleTextStyle:
+            const TextStyle(fontSize: 20, color: Colors.white),
+        backgroundColor: Colors.blue,
       ),
       body: SizedBox(
         width: double.infinity,
@@ -120,14 +98,15 @@ class _StreamHomePageState extends State<StreamHomePage> {
           children: [
             Text(
               lastNumber.toString(),
-              style: const TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
             ElevatedButton(
               onPressed: () => addRandomNumber(),
               child: const Text('New Random Number'),
+            ),
+            ElevatedButton(
+              onPressed: () => stopStream(),
+              child: const Text('Stop Subscription'),
             ),
           ],
         ),
