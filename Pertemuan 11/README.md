@@ -6,10 +6,12 @@
 
 # soal 1
 Tambahkan nama panggilan Anda pada title app sebagai identitas hasil pekerjaan Anda.
+
 <img src="img/soal1.png" />
 
 # soal 2
 Carilah judul buku favorit Anda di Google Books, lalu ganti ID buku pada variabel path di kode tersebut. Caranya ambil di URL browser Anda seperti gambar berikut ini.
+
 <img src="img/soal2.png" />
 
 # soal 3
@@ -17,7 +19,8 @@ Jelaskan maksud kode langkah 5 tersebut terkait substring dan catchError!
 - Bagian substring(0, 450) digunakan untuk menampilkan hanya 450 karakter pertama dari hasil respons HTTP agar tampilannya lebih ringkas dan mudah dibaca. Sementara itu, catchError berfungsi menangani kesalahan saat mengambil data dari internet, seperti koneksi gagal atau server tidak merespons, lalu menampilkan pesan error melalui setState().
 
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 3".
-https://github.com/user-attachments/assets/fadfd5ca-dd6a-4ddf-af77-938b4d847dfd
+  
+  https://github.com/user-attachments/assets/fadfd5ca-dd6a-4ddf-af77-938b4d847dfd
 
 # Soal 4
 - Jelaskan maksud kode langkah 1 dan 2 tersebut!
@@ -26,7 +29,8 @@ https://github.com/user-attachments/assets/fadfd5ca-dd6a-4ddf-af77-938b4d847dfd
 Pada tahap pertama, terdapat tiga method asynchronous yaitu returnOneAsync, returnTwoAsync, dan returnThreeAsync yang digunakan untuk meniru proses yang memerlukan waktu tertentu, misalnya pengambilan data dari internet. Setiap method menggunakan Future.delayed selama tiga detik sebelum mengembalikan nilai masing-masing 1, 2, dan 3. Sementara itu, pada tahap kedua, method count() berperan untuk menjalankan ketiga method tersebut secara berurutan dengan await, sehingga setiap proses akan ditunggu hingga selesai sebelum melanjutkan ke proses berikutnya. Nilai yang diperoleh dari ketiga pemanggilan tersebut dijumlahkan, lalu ditampilkan ke antarmuka aplikasi menggunakan setState() agar variabel result diperbarui dan hasilnya tampak di layar.
 
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 4".
-<img src="img/soal4.png" />
+  
+  <img src="img/soal4.png" />
 
 # Soal 5
 - Jelaskan maksud kode langkah 2 tersebut!
@@ -35,7 +39,8 @@ Pada tahap pertama, terdapat tiga method asynchronous yaitu returnOneAsync, retu
   Pada tahap kedua ini, kode memanfaatkan Completer untuk mengatur jalannya proses asynchronous secara manual. Variabel late Completer completer; berfungsi sebagai penampung yang nantinya akan digunakan untuk menyelesaikan proses asynchronous dan mengirimkan hasilnya. Method getNumber() bertugas membuat objek Completer<int>() baru, lalu memanggil method calculate() yang menjalankan proses asynchronous selama 5 detik menggunakan Future.delayed. Setelah waktu tunggu berakhir, calculate() memanggil completer.complete(42); sebagai tanda bahwa proses asynchronous sudah selesai dan menghasilkan nilai 42. Nilai tersebut dapat diakses melalui completer.future, yang dikembalikan oleh getNumber(). Secara sederhana, kode ini meniru proses yang berjalan di latar belakang selama 5 detik sebelum mengembalikan data berupa angka 42 yang bisa dimanfaatkan oleh bagian lain dari aplikasi.
 
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 5".
-<img src="img/soal4.png" />
+  
+  <img src="img/soal4.png" />
 
 # soal 6
 - Jelaskan maksud perbedaan kode langkah 2 dengan langkah 5-6 tersebut!
@@ -45,10 +50,12 @@ Pada tahap pertama, terdapat tiga method asynchronous yaitu returnOneAsync, retu
 
 
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 6".
-<img src="img/soal5.png" />
+  
+  <img src="img/soal5.png" />
 
 # Soal 7
 Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 7"
+
 https://github.com/user-attachments/assets/2c2d65f9-e767-4a9d-b38a-70940c09a752
 
 # Soal 8
@@ -59,6 +66,7 @@ Perbedaan antara langkah 1 dan langkah 4 terletak pada metode yang digunakan unt
 
 # Soal 9
 Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 9".
+
 https://github.com/user-attachments/assets/4255b16e-366d-4065-b997-7fc0e326c0f4
 
 # Soal 10
@@ -66,16 +74,19 @@ Panggil method handleError() tersebut di ElevatedButton, lalu run. Apa hasilnya?
 
 Jawab :
 Ketika method handleError() dijalankan melalui tombol ElevatedButton, tampilan di UI akan menampilkan pesan "Exception: Something terrible happened!", sedangkan di konsol muncul teks "Complete". Pesan kesalahan tersebut berasal dari method returnError(), yang secara sengaja melempar exception setelah penundaan selama dua detik. Perbedaannya, pada langkah 1, error hanya dilempar tanpa mekanisme penanganan, sehingga berpotensi membuat aplikasi berhenti. Namun, pada langkah 4, error tersebut sudah diantisipasi menggunakan blok try–catch, sehingga program tetap dapat berjalan dengan normal. Selain itu, bagian finally memastikan bahwa pesan "Complete" tetap ditampilkan, baik proses berhasil maupun terjadi error.
+
 https://github.com/user-attachments/assets/4255b16e-366d-4065-b997-7fc0e326c0f4
   
 # Soal 11
 Tambahkan nama panggilan Anda pada tiap properti title sebagai identitas pekerjaan Anda.
+
 <img src="img/soal11.png" />
 
 # Soal 12
 - Jika Anda tidak melihat animasi loading tampil, kemungkinan itu berjalan sangat cepat. Tambahkan delay pada method getPosition() dengan kode await Future.delayed(const Duration(seconds: 3));
 
     Jawab :
+  
 <img src="img/soal12.png" />
 
 - Apakah Anda mendapatkan koordinat GPS ketika run di browser? Mengapa demikian?
@@ -84,6 +95,7 @@ Tambahkan nama panggilan Anda pada tiap properti title sebagai identitas pekerja
     Tidak, saat dijalankan di browser, aplikasi umumnya tidak bisa memperoleh koordinat GPS yang benar-benar akurat. Ini disebabkan karena Flutter Web tidak memiliki akses langsung ke sensor GPS perangkat. Sebagai gantinya, aplikasi hanya memanfaatkan API geolokasi milik browser, yang menentukan lokasi berdasarkan Wi-Fi, alamat IP, atau lokasi umum perangkat desktop. Selain itu, browser dapat membatasi akses lokasi jika aplikasi tidak dijalankan melalui HTTPS atau jika pengguna menolak memberikan izin lokasi. Akibatnya, aplikasi mungkin menampilkan error atau hanya menunjukkan perkiraan posisi, bukan data GPS yang sebenarnya.
 
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 12".
+  
 <img src="img/Prak7.jpg" />
 
 # Soal 13
@@ -110,7 +122,8 @@ Secara tampilan, tidak ada perubahan yang terlihat dibandingkan langkah sebelumn
 
  # Soal 15
  - Tambahkan nama panggilan Anda pada tiap properti title sebagai identitas pekerjaan Anda.
-<img src="img/soal15.png" />
+   
+   <img src="img/soal15.png" />
 
 # Soal 16
 - Cobalah klik se tiap button, apa yang terjadi ? Mengapa demikian ?
@@ -124,16 +137,19 @@ Saat salah satu tombol ditekan, halaman kedua akan mengirimkan warna yang dipili
 <img src="img/soal16.png" />
 
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 16".
-https://github.com/user-attachments/assets/913f031f-1522-4e06-b154-359f6b2a31fb
+  
+  https://github.com/user-attachments/assets/913f031f-1522-4e06-b154-359f6b2a31fb
 
 # Soal 17
 - Cobalah klik setiap button, apa yang terjadi ? Mengapa demikian ?
   
     Jawab:
     Ketika tombol "Change Color" ditekan, fungsi _showColorDialog akan dijalankan, lalu memunculkan AlertDialog melalui await showDialog. Karena menggunakan await, proses dalam fungsi tersebut berhenti sejenak sampai dialog ditutup. Saat salah satu warna (Pink, Kuning, atau Tosca) dipilih, aksi onPressed pada tombol akan mengubah nilai variabel color dan memanggil Navigator.pop(context) untuk menutup dialog. Setelah dialog tertutup, proses await selesai dan eksekusi kode berlanjut ke setState(() {}), yang memicu Flutter untuk melakukan rebuild UI. Hasilnya, backgroundColor pada Scaffold langsung diperbarui sesuai warna yang dipilih oleh pengguna.
+  
     https://github.com/user-attachments/assets/3ff92fb7-4c70-4967-8ee8-651af0861248
 
 - Gantilah 3 warna pada langkah 3 dengan warna favorit Anda!
+  
   <img src="img/soal17.png" />
 
 - Capture hasil praktikum Anda berupa GIF dan lampirkan di README. Lalu lakukan commit dengan pesan "W11: Soal 17".
